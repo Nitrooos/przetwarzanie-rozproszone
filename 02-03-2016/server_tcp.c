@@ -20,6 +20,10 @@ int main(int argc, char *argv[]) {
     saddr.sin_addr.s_addr = INADDR_ANY;
     saddr.sin_port = htons(1234);
     sfd = socket(PF_INET, SOCK_STREAM, 0);
+
+    int nFoo = 1;
+    setsockopt(sfd, SOL_SOCKET, SO_REUSEADDR, (char*)&nFoo, sizeof(nFoo));
+
     bind(sfd, (struct sockaddr*)&saddr, sizeof(saddr));
     listen(sfd, 5);
 
