@@ -51,10 +51,10 @@ void ifsinfo(struct ifconf ifc) {
 
         ptr  += sizeof(struct ifreq);
 
-        printf("%s\t", ifr->ifr_name);
+        printf("%-15s", ifr->ifr_name);
         
         addr_in = (struct sockaddr_in*)&ifr->ifr_addr;
-        printf("inet addr:%s\t", inet_ntoa((struct in_addr)addr_in->sin_addr));
+        printf("inet addr:%15s    ", inet_ntoa((struct in_addr)addr_in->sin_addr));
 
         if (ioctl(sfd, SIOCGIFHWADDR, ifr) < 0) {
             perror("error");
