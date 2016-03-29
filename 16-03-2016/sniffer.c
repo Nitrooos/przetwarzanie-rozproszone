@@ -19,14 +19,25 @@ struct sockaddr_ll sall;
 char *get_packet_type(int type) {
     char *packet_type = (char*)malloc(100);
     switch (type) {
-        case 0: strcpy(packet_type, "PACKET_HOST");      break;
-        case 1: strcpy(packet_type, "PACKET_BROADCAST"); break;
-        case 2: strcpy(packet_type, "PACKET_MULTICAST"); break;
-        case 3: strcpy(packet_type, "PACKET_OTHERHOST"); break;
-        case 4: strcpy(packet_type, "PACKET_OUTGOING");  break;
-        default: strcpy(packet_type, "PACKET_UNKNOWN");  break;
+        case 0: strcpy(packet_type,  "HOST");      break;
+        case 1: strcpy(packet_type,  "BROADCAST"); break;
+        case 2: strcpy(packet_type,  "MULTICAST"); break;
+        case 3: strcpy(packet_type,  "OTHERHOST"); break;
+        case 4: strcpy(packet_type,  "OUTGOING");  break;
+        default: strcpy(packet_type, "UNKNOWN");   break;
     }
     return packet_type;
+}
+
+char *get_packet_net_proto(unsigned short proto) {
+    char *net_proto = (char*)malloc(100);
+    switch (proto) {
+        case 0x0800: strcpy(net_proto, "IPv4");  break;
+        case 0x86DD: strcpy(net_proto, "IPv6");  break;
+        case 0x0806: strcpy(net_proto, "ARP");   break;
+        default: strcpy(net_proto, "UNKNOWN"); break;
+    }
+    return net_proto;
 }
 
 void listen_frame(char *interface) {
@@ -38,7 +49,7 @@ void listen_frame(char *interface) {
 	sall.sll_protocol = htons(ETH_P_ALL);
 	sall.sll_ifindex = ifr.ifr_ifindex;
 	sall.sll_hatype = ARPHRD_ETHER;
-	//sall.sll_pkttype = PACKET_BROADCAST;
+	sall.sll_pkttype = PACKET_HOST;
 	sall.sll_halen = ETH_ALEN;
 	bind(sfd, (struct sockaddr*) &sall, sizeof(struct sockaddr_ll));
 
@@ -58,7 +69,9 @@ void listen_frame(char *interface) {
     printf("%s | ", packet_type);
     free(packet_type);
 
-    printf("%hu\n", sall.sll_protocol);
+    char *net_proto = get_packet_net_proto(ntohs(fhead->h_proto));
+    printf("%s\n", net_proto);
+    free(net_proto);
 
 	for (i = 0; i < len ; i++) {
 		printf("%02x ", (unsigned char) frame[i]);
