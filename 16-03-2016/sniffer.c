@@ -38,7 +38,7 @@ void listen_frame(char *interface) {
 	sall.sll_protocol = htons(ETH_P_ALL);
 	sall.sll_ifindex = ifr.ifr_ifindex;
 	sall.sll_hatype = ARPHRD_ETHER;
-	sall.sll_pkttype = PACKET_HOST;
+	//sall.sll_pkttype = PACKET_BROADCAST;
 	sall.sll_halen = ETH_ALEN;
 	bind(sfd, (struct sockaddr*) &sall, sizeof(struct sockaddr_ll));
 
