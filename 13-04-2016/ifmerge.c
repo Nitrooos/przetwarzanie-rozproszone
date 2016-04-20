@@ -60,7 +60,7 @@ void set_gateway(uint32_t gateway, uint32_t dst_ip, uint32_t dst_netmask) {
     addr = (struct sockaddr_in*) &route.rt_genmask;
     addr->sin_family = AF_INET;
     addr->sin_addr.s_addr = dst_netmask;
-    route.rt_flags = RTF_UP;
+    route.rt_flags = RTF_UP | RTF_GATEWAY;
     route.rt_metric = 0;
     ioctl(fd, SIOCADDRT, &route);
     close(fd);
