@@ -1,0 +1,5 @@
+obj/
+debug/
+release/
+.project/
+premake5.lua
