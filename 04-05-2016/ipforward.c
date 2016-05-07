@@ -39,8 +39,8 @@ char *ip_receive() {
     if (ip->protocol == IPPROTO_CUSTOM) {
       inet_ntop(AF_INET, &ip->saddr, (char*) &saddr, 16);
       inet_ntop(AF_INET, &ip->daddr, (char*) &daddr, 16);
-      data = (char*)malloc(sizeof(struct iphdr));
-      memcpy(data, (char*) ip + (ip->ihl * 4), sizeof(struct iphdr));
+      data = (char*)malloc(sizeof(buf));
+      memcpy(data, (char*) ip + (ip->ihl * 4), sizeof(buf));
       printf("[%dB] %s -> %s | %s\n", rc - (ip->ihl * 4), saddr, daddr, data);
       break;
     }
