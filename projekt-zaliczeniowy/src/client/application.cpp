@@ -18,6 +18,8 @@ Application::Application(int argc, char *argv[]) {
     } catch (Exception::Help const& h) {
         cerr << h.what();
     }
+    
+    this->_kernel_connection.reset(new Connection::Kernel());
 }
 
 Application *Application::get_instance(int argc, char *argv[]) {
@@ -28,5 +30,14 @@ Application *Application::get_instance(int argc, char *argv[]) {
 }
 
 void Application::run() {
-    
+    while (true) {
+        // odbierz kolejną wiadomość z jądra
+        this->_kernel_connection->receive();
+        cout << "Odebrano wiadomość\n";
+        
+        // jeśli jesteś połączony z serwerem to wyślij mu tą wiadomość
+        if (this->_server_connection.get() != nullptr) {
+            this->_server_connection->send("Odebrano wiadomość");
+        }
+    }
 }
