@@ -3,6 +3,8 @@
 
 #include <memory>
 
+#include "arguments/parse.hpp"
+
 using namespace std;
 
 class Application {
@@ -10,9 +12,9 @@ class Application {
         Application(int argc, char *argv[]);
         
         static unique_ptr<Application> _instance;
+        TCPAddress _server_address;
     public:
         static Application *get_instance(int argc, char *argv[]);
-        
         void run();
 };
 

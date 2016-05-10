@@ -4,7 +4,7 @@
 #include <arpa/inet.h>
 #include <string>
 
-#include "server-address.hpp"
+#include "tcp-address.hpp"
 
 using namespace std;
 
@@ -14,7 +14,7 @@ class Arguments {
         static int parse_port_number(string const& arg);
     
     public:
-        static ServerAddress parse(int argc, char *argv[]);
+        static TCPAddress parse(int argc, char *argv[]);
 };
 
 #endif

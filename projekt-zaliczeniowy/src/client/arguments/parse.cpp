@@ -4,8 +4,8 @@
 #include <stdexcept>
 #include <cstring>
 
-ServerAddress Arguments::parse(int argc, char *argv[]) {
-    ServerAddress addr;
+TCPAddress Arguments::parse(int argc, char *argv[]) {
+    TCPAddress addr{0, 0};
     
     switch (argc) {
         case 1:
@@ -27,7 +27,6 @@ ServerAddress Arguments::parse(int argc, char *argv[]) {
     return addr;
 }
 
-
 void Arguments::parse_help(string const& arg) {
     if (arg == "-h" || arg == "--help") {
         throw Exception::Help();
@@ -47,7 +46,7 @@ int Arguments::parse_port_number(string const& arg) {
     try {
         int port = stoi(arg);
         if (port < 1024 || port > 32767) {
-            throw Exception::Error(arg + " is not in allowed range 1024 .. 32767");
+            throw Exception::Error(arg + " is not allowed port number, try something between 1024 .. 32767");
         }
     } catch (invalid_argument const& e) {
         throw Exception::Error(arg + " is not a valid port number, try something between 1024 .. 32767");
