@@ -67,6 +67,7 @@ endif
 OBJECTS := \
 	$(OBJDIR)/application.o \
 	$(OBJDIR)/parse.o \
+	$(OBJDIR)/kernel.o \
 	$(OBJDIR)/tcp.o \
 	$(OBJDIR)/main.o \
 
@@ -130,6 +131,9 @@ $(OBJDIR)/application.o: src/client/application.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/parse.o: src/client/arguments/parse.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/kernel.o: src/client/connection/kernel.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/tcp.o: src/client/connection/tcp.cpp

@@ -3,14 +3,18 @@
 
 #include "address.hpp"
 
-class Connection {
-    int _socket;
+namespace Connection {
+
+    class TCP {
+        int _socket;
+        
+        struct sockaddr_in prepare_sockaddr(TCPAddress const& address);
+        public:
+            TCP(TCPAddress const& address);
+            ~TCP();
+            void send(char *data);
+    };
     
-    struct sockaddr_in prepare_sockaddr(TCPAddress const& address);
-    public:
-        Connection(TCPAddress const& address);
-        ~Connection();
-        void send(char *data);
-};
+}
 
 #endif
