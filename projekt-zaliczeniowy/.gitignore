@@ -4,3 +4,4 @@ release/
 .project/
 other/
 premake5.lua
+log
