@@ -25,7 +25,7 @@ void Arguments::set_address(TCPAddress &address, int argc, char *argv[]) {
             address._ip_address = Arguments::parse_ip_address(string(argv[1]));
             address._port = htons(1234);
             
-            throw Exception::Warning("You didn't specified server port so default [1234] will be used");
+            throw Exception::Warning("You didn't specified server port so default 1234 will be used");
             break;
         default:
             address._ip_address = Arguments::parse_ip_address(string(argv[1]));
