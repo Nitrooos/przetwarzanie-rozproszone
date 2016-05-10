@@ -23,7 +23,7 @@ void Arguments::set_address(TCPAddress &address, int argc, char *argv[]) {
         case 2:
             Arguments::parse_help(string(argv[1]));
             address._ip_address = Arguments::parse_ip_address(string(argv[1]));
-            address._port = 1234;
+            address._port = htons(1234);
             
             throw Exception::Warning("You didn't specified server port so default [1234] will be used");
             break;
@@ -55,9 +55,11 @@ int Arguments::parse_port_number(string const& arg) {
         if (port < 1024 || port > 32767) {
             throw Exception::Error(arg + " is not allowed port number, try something between 1024 .. 32767");
         }
+        return htons(port);
     } catch (invalid_argument const& e) {
         throw Exception::Error(arg + " is not a valid port number, try something between 1024 .. 32767");
     } catch (out_of_range const& e) {
         throw Exception::Error(arg + " is not in allowed range 1024 .. 32767");
     }
+    return 0;
 }

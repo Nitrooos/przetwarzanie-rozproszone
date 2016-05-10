@@ -6,6 +6,7 @@
 class Connection {
     int _socket;
     
+    struct sockaddr_in prepare_sockaddr(TCPAddress const& address);
     public:
         Connection(TCPAddress const& address);
         ~Connection();
