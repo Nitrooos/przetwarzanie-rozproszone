@@ -11,26 +11,26 @@ ifndef verbose
 endif
 
 ifeq ($(config),debug)
-  PF_NETLINK_config = debug
+  netmon_config = debug
 endif
 ifeq ($(config),release)
-  PF_NETLINK_config = release
+  netmon_config = release
 endif
 
-PROJECTS := PF_NETLINK
+PROJECTS := netmon
 
 .PHONY: all clean help $(PROJECTS) 
 
 all: $(PROJECTS)
 
-PF_NETLINK:
-ifneq (,$(PF_NETLINK_config))
-	@echo "==== Building PF_NETLINK ($(PF_NETLINK_config)) ===="
-	@${MAKE} --no-print-directory -C . -f PF_NETLINK.make config=$(PF_NETLINK_config)
+netmon:
+ifneq (,$(netmon_config))
+	@echo "==== Building netmon ($(netmon_config)) ===="
+	@${MAKE} --no-print-directory -C . -f netmon.make config=$(netmon_config)
 endif
 
 clean:
-	@${MAKE} --no-print-directory -C . -f PF_NETLINK.make clean
+	@${MAKE} --no-print-directory -C . -f netmon.make clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -42,6 +42,6 @@ help:
 	@echo "TARGETS:"
 	@echo "   all (default)"
 	@echo "   clean"
-	@echo "   PF_NETLINK"
+	@echo "   netmon"
 	@echo ""
 	@echo "For more information, see http://industriousone.com/premake/quick-start"

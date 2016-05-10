@@ -13,7 +13,7 @@ endif
 ifeq ($(config),debug)
   RESCOMP = windres
   TARGETDIR = debug
-  TARGET = $(TARGETDIR)/PF_NETLINK
+  TARGET = $(TARGETDIR)/netmon
   OBJDIR = obj/debug
   DEFINES +=
   INCLUDES +=
@@ -40,7 +40,7 @@ endif
 ifeq ($(config),release)
   RESCOMP = windres
   TARGETDIR = release
-  TARGET = $(TARGETDIR)/PF_NETLINK
+  TARGET = $(TARGETDIR)/netmon
   OBJDIR = obj/release
   DEFINES +=
   INCLUDES +=
@@ -65,7 +65,9 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/rtmon.o \
+	$(OBJDIR)/application.o \
+	$(OBJDIR)/parse.o \
+	$(OBJDIR)/main.o \
 
 RESOURCES := \
 
@@ -80,7 +82,7 @@ ifeq (/bin,$(findstring /bin,$(SHELL)))
 endif
 
 $(TARGET): $(GCH) ${CUSTOMFILES} $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking PF_NETLINK
+	@echo Linking netmon
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -101,7 +103,7 @@ else
 endif
 
 clean:
-	@echo Cleaning PF_NETLINK
+	@echo Cleaning netmon
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -123,7 +125,13 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) -x c++-header $(ALL_CXXFLAGS) -o "$@" -MF "$(@:%.gch=%.d)" -c "$<"
 endif
 
-$(OBJDIR)/rtmon.o: src/rtmon.cpp
+$(OBJDIR)/application.o: src/client/application.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/parse.o: src/client/arguments/parse.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/main.o: src/client/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

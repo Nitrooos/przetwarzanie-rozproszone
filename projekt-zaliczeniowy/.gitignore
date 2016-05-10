@@ -2,4 +2,5 @@ obj/
 debug/
 release/
 .project/
+other/
 premake5.lua
