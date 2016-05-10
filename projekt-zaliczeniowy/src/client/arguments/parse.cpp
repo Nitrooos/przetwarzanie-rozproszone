@@ -1,30 +1,37 @@
 #include "parse.hpp"
 #include "../exceptions/types.hpp"
 
+#include <iostream>
 #include <stdexcept>
 #include <cstring>
 
 TCPAddress Arguments::parse(int argc, char *argv[]) {
     TCPAddress addr{0, 0};
-    
+    try {
+        Arguments::set_address(addr, argc, argv);
+    } catch (Exception::Warning const& w) {
+        cerr << w.what();
+    }
+    return addr;
+}
+
+void Arguments::set_address(TCPAddress &address, int argc, char *argv[]) {
     switch (argc) {
         case 1:
             throw Exception::Warning("You didn't specified server IP address nor port so all notifications will be only printed to local stdout");
             break;
         case 2:
             Arguments::parse_help(string(argv[1]));
-            addr._ip_address = Arguments::parse_ip_address(string(argv[1]));
-            addr._port = 1234;
+            address._ip_address = Arguments::parse_ip_address(string(argv[1]));
+            address._port = 1234;
             
             throw Exception::Warning("You didn't specified server port so default [1234] will be used");
             break;
         default:
-            addr._ip_address = Arguments::parse_ip_address(string(argv[1]));
-            addr._port = Arguments::parse_port_number(string(argv[2]));
+            address._ip_address = Arguments::parse_ip_address(string(argv[1]));
+            address._port = Arguments::parse_port_number(string(argv[2]));
             break;
     }
-    
-    return addr;
 }
 
 void Arguments::parse_help(string const& arg) {

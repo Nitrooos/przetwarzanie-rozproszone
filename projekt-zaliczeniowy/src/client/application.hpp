@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "arguments/parse.hpp"
+#include "connection/tcp.hpp"
 
 using namespace std;
 
@@ -12,7 +12,7 @@ class Application {
         Application(int argc, char *argv[]);
         
         static unique_ptr<Application> _instance;
-        TCPAddress _server_address;
+        unique_ptr<Connection> _server_connection;
     public:
         static Application *get_instance(int argc, char *argv[]);
         void run();
