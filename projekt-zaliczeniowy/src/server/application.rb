@@ -28,8 +28,9 @@ puts "[INFO] Listening on port #{ options[:port] }"
 loop do
     Thread.start(server.accept) do |client|
         while (line = client.recv(1000)) != ""
+            line.strip!
             p line if options[:verbose]
-            file.write line
+            file.puts line
         end
         client.close
         puts "Closing connection"

@@ -12,7 +12,7 @@ namespace Connection {
         public:
             TCP(TCPAddress const& address);
             ~TCP();
-            void send(char *data);
+            void send(const char *data);
     };
     
 }

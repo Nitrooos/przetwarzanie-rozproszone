@@ -70,6 +70,9 @@ OBJECTS := \
 	$(OBJDIR)/kernel.o \
 	$(OBJDIR)/tcp.o \
 	$(OBJDIR)/main.o \
+	$(OBJDIR)/base.o \
+	$(OBJDIR)/del.o \
+	$(OBJDIR)/new.o \
 
 RESOURCES := \
 
@@ -140,6 +143,15 @@ $(OBJDIR)/tcp.o: src/client/connection/tcp.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/main.o: src/client/main.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/base.o: src/client/message/base.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/del.o: src/client/message/route/del.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/new.o: src/client/message/route/new.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

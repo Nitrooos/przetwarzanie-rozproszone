@@ -31,13 +31,21 @@ Application *Application::get_instance(int argc, char *argv[]) {
 
 void Application::run() {
     while (true) {
-        // odbierz kolejną wiadomość z jądra
-        this->_kernel_connection->receive();
-        cout << "Odebrano wiadomość\n";
+        // odbierz kolejne wiadomości z jądra
+        auto messages = this->_kernel_connection->receive();
         
-        // jeśli jesteś połączony z serwerem to wyślij mu tą wiadomość
-        if (this->_server_connection.get() != nullptr) {
-            this->_server_connection->send("Odebrano wiadomość");
+        // wypisz je na ekran, ewentualnie wyślij do serwera
+        for (auto &m : messages) {
+            cout << m->shout() << "\n";
+
+            if (this->_server_connection.get() != nullptr) {
+                this->_server_connection->send(m->shout().c_str());
+            }
+        }
+        
+        // zwolnienie pamięci wiadomości
+        for (auto &m : messages) {
+            delete m;
         }
     }
 }
