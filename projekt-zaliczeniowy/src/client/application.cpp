@@ -2,11 +2,19 @@
 #include "exceptions/types.hpp"
 #include "arguments/parse.hpp"
 
+#include <signal.h>
 #include <iostream>
 
 unique_ptr<Application> Application::_instance;
 
+void handle(int signum) {
+    cout << "\n\n[INFO] SIGINT detected, releasing resources...";
+    exit(0);
+}
+
 Application::Application(int argc, char *argv[]) {
+    signal(SIGINT, handle);
+
     try {
         TCPAddress server_address = Arguments::parse(argc, argv);
         if (server_address._ip_address.s_addr != 0 && server_address._port != 0) {

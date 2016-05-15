@@ -4,7 +4,6 @@
 #include <arpa/inet.h>
 #include <cstring>
 #include <unistd.h>
-#include <iostream>
 
 Connection::Kernel::Kernel() {
     if ((this->_socket = socket(PF_NETLINK, SOCK_RAW, NETLINK_ROUTE)) < 0) {
@@ -16,6 +15,10 @@ Connection::Kernel::Kernel() {
     if (bind(this->_socket, (struct sockaddr*) &sock_addr, sizeof sock_addr) < 0) {
         throw Exception::Error("Connection::Kernel bind(): there's no connection between process and kernel");
     }
+}
+
+Connection::Kernel::~Kernel() {
+    close(this->_socket);
 }
 
 struct sockaddr_nl Connection::Kernel::prepare_sockaddr() {

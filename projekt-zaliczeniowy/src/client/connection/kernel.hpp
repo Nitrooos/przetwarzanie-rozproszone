@@ -17,6 +17,7 @@ namespace Connection {
         int receive_msg_headers(char *buf, int buf_len);
         public:
             Kernel();
+            ~Kernel();
             list<Message::Base*> receive();
     };
     
