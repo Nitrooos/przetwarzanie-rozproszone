@@ -71,6 +71,7 @@ OBJECTS := \
 	$(OBJDIR)/tcp.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/base.o \
+	$(OBJDIR)/base1.o \
 	$(OBJDIR)/del.o \
 	$(OBJDIR)/new.o \
 
@@ -146,6 +147,9 @@ $(OBJDIR)/main.o: src/client/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/base.o: src/client/message/base.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/base1.o: src/client/message/route/base.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/del.o: src/client/message/route/del.cpp

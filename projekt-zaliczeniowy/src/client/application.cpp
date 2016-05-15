@@ -8,7 +8,7 @@
 unique_ptr<Application> Application::_instance;
 
 void handle(int signum) {
-    cout << "\n\n[INFO] SIGINT detected, releasing resources...";
+    cout << "\n\n[INFO] SIGINT detected, releasing resources...\n";
     exit(0);
 }
 

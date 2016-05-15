@@ -9,9 +9,8 @@ namespace Message {
         
         class Base : public Message::Base {
             public:
-                Base(struct nlmsghdr *header) : Message::Base(header) {
-                    this->set_attributes((struct rtmsg*)NLMSG_DATA(header));
-                }
+                Base(struct nlmsghdr *header);
+                virtual string shout();
         };
         
     }
