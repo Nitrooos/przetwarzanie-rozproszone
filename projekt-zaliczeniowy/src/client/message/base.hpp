@@ -1,5 +1,5 @@
-#ifndef BASE_H
-#define BASE_H
+#ifndef MESSAGE_BASE_H
+#define MESSAGE_BASE_H
 
 #include <list>
 #include <string>
@@ -10,10 +10,11 @@ using namespace std;
 namespace Message {
     
     class Base {
-        struct nlmsghdr _header;
-        struct rtmsg _rtnetlink_message;
-        list<struct rtattr> _attributes;
-
+        protected:
+            struct nlmsghdr *_header;
+            list<struct rtattr*> _attributes;
+            
+            template <typename T> void set_attributes(T *message);
         public:
             Base(struct nlmsghdr *header);
             virtual string shout() = 0;
@@ -21,5 +22,15 @@ namespace Message {
     };
     
 }
+
+template <typename T>
+void Message::Base::set_attributes(T *message) {
+    struct rtattr *atp = (struct rtattr*) RTM_RTA(message);
+    int atlen = RTM_PAYLOAD(this->_header);
+    for(;RTA_OK(atp, atlen); atp = RTA_NEXT(atp, atlen)) {
+        this->_attributes.push_back(atp);
+    }
+}
+
 
 #endif

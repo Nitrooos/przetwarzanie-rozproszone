@@ -1,7 +1,7 @@
 #ifndef NEW_H
 #define NEW_H
 
-#include "../base.hpp"
+#include "base.hpp"
 
 namespace Message {
 

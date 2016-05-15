@@ -32,12 +32,10 @@ struct sockaddr_nl Connection::Kernel::prepare_sockaddr() {
 list<Message::Base*> Connection::Kernel::receive() {
     list<Message::Base*> messages;
     
-    int nl_length;//, atlen;
+    int nl_length;
     char buf[8192];
-    //char dst[32], msk[32], gwy[32], dev[32];
     struct nlmsghdr *nl_message;
     struct rtmsg *rtp;
-    //struct rtattr *atp;
     
     nl_length = this->receive_msg_headers(buf, sizeof buf);
     nl_message = (struct nlmsghdr*) buf;

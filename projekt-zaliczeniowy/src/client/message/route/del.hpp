@@ -1,7 +1,7 @@
 #ifndef DEL_H
 #define DEL_H
 
-#include "../base.hpp"
+#include "base.hpp"
 
 namespace Message {
 

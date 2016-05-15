@@ -16,13 +16,4 @@ Message::Base* Message::Base::build(struct nlmsghdr *header) {
     }
 }
 
-Message::Base::Base(struct nlmsghdr *header) {
-    this->_header = *header;
-    this->_rtnetlink_message = *(struct rtmsg*)NLMSG_DATA(header);
-    
-    struct rtattr *atp = (struct rtattr*) RTM_RTA(&this->_rtnetlink_message);
-    int atlen = RTM_PAYLOAD(header);
-    for(;RTA_OK(atp, atlen); atp = RTA_NEXT(atp, atlen)) {
-        this->_attributes.push_back(*atp);
-    }    
-}
+Message::Base::Base(struct nlmsghdr *header) : _header(header) { }
