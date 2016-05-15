@@ -44,7 +44,11 @@ void Application::run() {
         
         // wypisz je na ekran, ewentualnie wyślij do serwera
         for (auto &m : messages) {
-            cout << m->shout() << "\n";
+            try {
+                cout << m->shout() << "\n";
+            } catch (Exception::Printable const& e) {
+                cerr << e.what();
+            }
 
             if (this->_server_connection.get() != nullptr) {
                 this->_server_connection->send(m->shout().c_str());
