@@ -27,7 +27,7 @@ struct sockaddr_nl Connection::Kernel::prepare_sockaddr() {
     memset(&sock_addr, 0, sizeof sock_addr);
     sock_addr.nl_family = AF_NETLINK;
     sock_addr.nl_pid = getpid();
-    sock_addr.nl_groups = RTMGRP_IPV4_ROUTE;
+    sock_addr.nl_groups = RTMGRP_IPV4_ROUTE | RTMGRP_LINK | RTMGRP_NOTIFY;
     
     return sock_addr;
 }
@@ -43,11 +43,12 @@ list<Message::Base*> Connection::Kernel::receive() {
     nl_length = this->receive_msg_headers(buf, sizeof buf);
     nl_message = (struct nlmsghdr*) buf;
     for(;NLMSG_OK(nl_message, nl_length); nl_message = NLMSG_NEXT(nl_message, nl_length)) {
-        rtp = (struct rtmsg*) NLMSG_DATA(nl_message);
-        if (rtp->rtm_table != RT_TABLE_MAIN) {
-            continue;
+        // spróbuj zbudować nową, poprawną wiadomość
+        auto new_msg = Message::Base::build(nl_message);
+        // jeśli się udało, to dodaj do listy
+        if (new_msg != nullptr) {
+            messages.push_back(new_msg);
         }
-        messages.push_back(Message::Base::build(nl_message));
     }
     
     return messages;

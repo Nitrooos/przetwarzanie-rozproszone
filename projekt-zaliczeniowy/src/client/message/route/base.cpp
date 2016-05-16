@@ -49,3 +49,11 @@ string Message::Route::Base::shout() {
         return "dst " + string(dst) + "/" + string(msk) + " gateway " + string(gwy) + " dev " + string(dev);
     }
 }
+
+bool Message::Route::Base::validate_header(struct nlmsghdr *header) {
+    struct rtmsg *rtp = (struct rtmsg*) NLMSG_DATA(header);
+    if (rtp->rtm_table != RT_TABLE_MAIN) {
+        return false;
+    }
+    return true;
+}

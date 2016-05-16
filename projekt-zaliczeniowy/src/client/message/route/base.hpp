@@ -11,6 +11,7 @@ namespace Message {
             public:
                 Base(struct nlmsghdr *header);
                 virtual string shout();
+                static bool validate_header(struct nlmsghdr *header);
         };
         
     }
