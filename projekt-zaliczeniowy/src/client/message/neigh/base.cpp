@@ -3,6 +3,8 @@
 #include "del.hpp"
 
 #include <sstream>
+#include <cstring>
+#include <arpa/inet.h>
 
 Message::Neigh::Base::Base(struct nlmsghdr *header): Message::Base(header) {
     this->set_attributes((struct ndmsg*)NLMSG_DATA(header));
@@ -12,6 +14,7 @@ string Message::Neigh::Base::shout() {
     auto msg = (struct ndmsg*)NLMSG_DATA(this->_header);
     return "\n" + this->state(msg->ndm_state) + 
                   this->flags(msg->ndm_flags) + 
+                  this->attributes() +
                   this->device(msg->ndm_ifindex);
 }
 
@@ -56,4 +59,34 @@ string Message::Neigh::Base::device(int device) const {
     ostringstream S;
     this->print(S, "device", to_string(device));
     return S.str();
+}
+
+string Message::Neigh::Base::attributes() const {
+    ostringstream S;
+    char ntaddr[32];
+    unsigned char hwaddr[6];
+    
+    if (!this->_attributes.empty()) {
+        this->print(S, "attributes");
+        for (auto &attr : this->_attributes) {
+            switch (attr->rta_type) {
+                case NDA_DST:
+                    inet_ntop(AF_INET, RTA_DATA(attr), ntaddr, sizeof ntaddr);
+                    this->print(S, 1, 1, "IP", ntaddr);
+                    break;
+                case NDA_LLADDR:
+                    memcpy(hwaddr, RTA_DATA(attr), sizeof hwaddr);
+                    this->print(S, 1, 1, "hwaddr", this->make_hwaddr_string(hwaddr));
+                    break;
+            }
+        }
+    }
+    return S.str();
+}
+
+string Message::Neigh::Base::make_hwaddr_string(unsigned char *hwaddr) const {
+    char buf[32];
+    sprintf(buf, "%02X:%02X:%02X:%02X:%02X:%02X",
+            hwaddr[0], hwaddr[1], hwaddr[2], hwaddr[3], hwaddr[4], hwaddr[5]);
+    return string(buf);
 }
