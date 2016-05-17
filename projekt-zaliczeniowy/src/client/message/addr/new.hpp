@@ -1,11 +1,11 @@
-#ifndef MESSAGE_ROUTE_NEW_H
-#define MESSAGE_ROUTE_NEW_H
+#ifndef MESSAGE_ADDR_NEW_H
+#define MESSAGE_ADDR_NEW_H
 
 #include "base.hpp"
 
 namespace Message {
 
-    namespace Route {
+    namespace Addr {
         
         class New : public Base {
             public:

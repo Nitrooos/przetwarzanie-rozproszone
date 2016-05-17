@@ -14,6 +14,9 @@ namespace Message {
             struct nlmsghdr *_header;
             list<struct rtattr*> _attributes;
             
+            void print(ostream & S, string header) const;
+            void print(ostream & S, int state, int flag, string flag_as_string, string info) const;
+            void print(ostream & S, string flag_as_string, string value) const;
             template <typename T> void set_attributes(T *message);
         public:
             Base(struct nlmsghdr *header);
@@ -31,6 +34,5 @@ void Message::Base::set_attributes(T *message) {
         this->_attributes.push_back(atp);
     }
 }
-
 
 #endif

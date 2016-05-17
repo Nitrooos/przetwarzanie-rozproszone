@@ -29,8 +29,8 @@ loop do
     Thread.start(server.accept) do |client|
         while (line = client.recv(1000)) != ""
             line.strip!
-            p line if options[:verbose]
-            file.puts line
+            puts line if options[:verbose]
+            file.puts "[" + Time.now.strftime("%Y.%m.%d %H:%M:%S") + "] " + line
         end
         client.close
         puts "Closing connection"

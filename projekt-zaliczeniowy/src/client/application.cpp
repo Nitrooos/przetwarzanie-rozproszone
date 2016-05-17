@@ -45,7 +45,7 @@ void Application::run() {
         // wypisz je na ekran, ewentualnie wyślij do serwera
         for (auto &m : messages) {
             try {
-                cout << m->shout() << "\n";
+                cout << m->shout();
             } catch (Exception::Printable const& e) {
                 cerr << e.what();
             }

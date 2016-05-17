@@ -1,18 +1,17 @@
-#ifndef MESSAGE_ROUTE_BASE_H
-#define MESSAGE_ROUTE_BASE_H
+#ifndef MESSAGE_LINK_BASE_H
+#define MESSAGE_LINK_BASE_H
 
 #include "../base.hpp"
 
 namespace Message {
     
-    namespace Route {
+    namespace Link {
         
         class Base : public Message::Base {
             public:
                 Base(struct nlmsghdr *header);
                 virtual string shout();
-                static bool validate_header(struct nlmsghdr *header);
-                static Route::Base *build(struct nlmsghdr *header);
+                static Link::Base *build(struct nlmsghdr *header);
         };
         
     }

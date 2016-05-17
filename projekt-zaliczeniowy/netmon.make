@@ -71,9 +71,18 @@ OBJECTS := \
 	$(OBJDIR)/tcp.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/base.o \
-	$(OBJDIR)/base1.o \
 	$(OBJDIR)/del.o \
 	$(OBJDIR)/new.o \
+	$(OBJDIR)/base1.o \
+	$(OBJDIR)/base2.o \
+	$(OBJDIR)/del1.o \
+	$(OBJDIR)/new1.o \
+	$(OBJDIR)/base3.o \
+	$(OBJDIR)/del2.o \
+	$(OBJDIR)/new2.o \
+	$(OBJDIR)/base4.o \
+	$(OBJDIR)/del3.o \
+	$(OBJDIR)/new3.o \
 
 RESOURCES := \
 
@@ -146,16 +155,43 @@ $(OBJDIR)/tcp.o: src/client/connection/tcp.cpp
 $(OBJDIR)/main.o: src/client/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/base.o: src/client/message/base.cpp
+$(OBJDIR)/base.o: src/client/message/addr/base.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/base1.o: src/client/message/route/base.cpp
+$(OBJDIR)/del.o: src/client/message/addr/del.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/del.o: src/client/message/route/del.cpp
+$(OBJDIR)/new.o: src/client/message/addr/new.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/new.o: src/client/message/route/new.cpp
+$(OBJDIR)/base1.o: src/client/message/base.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/base2.o: src/client/message/link/base.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/del1.o: src/client/message/link/del.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/new1.o: src/client/message/link/new.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/base3.o: src/client/message/neigh/base.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/del2.o: src/client/message/neigh/del.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/new2.o: src/client/message/neigh/new.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/base4.o: src/client/message/route/base.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/del3.o: src/client/message/route/del.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/new3.o: src/client/message/route/new.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

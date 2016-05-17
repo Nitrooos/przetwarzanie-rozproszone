@@ -1,11 +1,11 @@
-#ifndef MESSAGE_ROUTE_NEW_H
-#define MESSAGE_ROUTE_NEW_H
+#ifndef MESSAGE_LINK_NEW_H
+#define MESSAGE_LINK_NEW_H
 
 #include "base.hpp"
 
 namespace Message {
 
-    namespace Route {
+    namespace Link {
         
         class New : public Base {
             public:

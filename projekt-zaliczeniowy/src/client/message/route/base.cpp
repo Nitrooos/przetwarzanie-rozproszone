@@ -1,4 +1,7 @@
 #include "base.hpp"
+#include "new.hpp"
+#include "del.hpp"
+
 #include "../../exceptions/types.hpp"
 
 #include <cstring>
@@ -47,6 +50,21 @@ string Message::Route::Base::shout() {
         return string(dst) + "/" + string(msk) + " dev " + string(dev);
     } else {
         return "dst " + string(dst) + "/" + string(msk) + " gateway " + string(gwy) + " dev " + string(dev);
+    }
+}
+
+Message::Route::Base *Message::Route::Base::build(struct nlmsghdr *header) {
+    switch (header->nlmsg_type) {
+        case RTM_NEWROUTE:
+            if (Message::Route::Base::validate_header(header)) {
+                return new Message::Route::New(header);
+            }
+            return nullptr;
+        case RTM_DELROUTE:
+            if (Message::Route::Base::validate_header(header)) {
+                return new Message::Route::Del(header);
+            }
+            return nullptr;
     }
 }
 

@@ -1,11 +1,11 @@
-#ifndef MESSAGE_ROUTE_DEL_H
-#define MESSAGE_ROUTE_DEL_H
+#ifndef MESSAGE_ADDR_DEL_H
+#define MESSAGE_ADDR_DEL_H
 
 #include "base.hpp"
 
 namespace Message {
 
-    namespace Route {
+    namespace Addr {
         
         class Del : public Base {
             public:
