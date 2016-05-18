@@ -14,9 +14,9 @@ namespace Message {
             struct nlmsghdr *_header;
             list<struct rtattr*> _attributes;
             
-            void print(ostream & S, string header) const;
+            void print(ostream & S, string header, int indent = 1) const;
+            void print(ostream & S, string flag_as_string, string value, int indent = 1) const;
             void print(ostream & S, int state, int flag, string flag_as_string, string info) const;
-            void print(ostream & S, string flag_as_string, string value) const;
             template <typename T> void set_attributes(T *message);
         public:
             Base(struct nlmsghdr *header);

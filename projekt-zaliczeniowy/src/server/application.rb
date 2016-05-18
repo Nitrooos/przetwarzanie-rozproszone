@@ -27,7 +27,7 @@ puts "[INFO] Listening on port #{ options[:port] }"
 
 loop do
     Thread.start(server.accept) do |client|
-        while (line = client.recv(1000)) != ""
+        while (line = client.recv(8192)) != ""
             line.strip!
             puts line if options[:verbose]
             file.puts "[" + Time.now.strftime("%Y.%m.%d %H:%M:%S") + "] " + line

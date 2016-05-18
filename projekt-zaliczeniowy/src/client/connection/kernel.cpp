@@ -4,6 +4,7 @@
 #include <arpa/inet.h>
 #include <cstring>
 #include <unistd.h>
+#include <iostream>
 
 Connection::Kernel::Kernel() {
     if ((this->_socket = socket(PF_NETLINK, SOCK_RAW, NETLINK_ROUTE)) < 0) {
@@ -44,10 +45,14 @@ list<Message::Base*> Connection::Kernel::receive() {
     nl_message = (struct nlmsghdr*) buf;
     for(;NLMSG_OK(nl_message, nl_length); nl_message = NLMSG_NEXT(nl_message, nl_length)) {
         // spróbuj zbudować nową, poprawną wiadomość
-        auto new_msg = Message::Base::build(nl_message);
-        // jeśli się udało, to dodaj do listy
-        if (new_msg != nullptr) {
-            messages.push_back(new_msg);
+        try {
+            auto new_msg = Message::Base::build(nl_message);
+            // jeśli się udało, to dodaj do listy
+            if (new_msg != nullptr) {
+                messages.push_back(new_msg);
+            }
+        } catch (Exception::Warning const& e) {
+            cerr << e.what();
         }
     }
     
