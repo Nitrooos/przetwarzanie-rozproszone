@@ -45,11 +45,11 @@ int main(int argc, char **argv) {
            caddr.sin_port);
     while (1) {
         now = time(NULL);
-	snprintf(buf, 1024, "%s", ctime(&now));
-	sctp_sendmsg(cfd, (void*) buf, (size_t) strlen(buf) + 1, NULL, 0, 0, 0, LOCAL_TIME_STREAM, 0, 0);
-    	snprintf(buf, 1024, "%s", asctime(gmtime(&now)));
-	sctp_sendmsg(cfd, (void*) buf, (size_t) strlen(buf) + 1, NULL, 0, 0, 0, GREENWICH_MEAN_TIME_STREAM, 0, 0);
-	sleep(1);
+        snprintf(buf, 1024, "%s", ctime(&now));
+        sctp_sendmsg(cfd, (void*) buf, (size_t) strlen(buf) + 1, NULL, 0, 0, 0, LOCAL_TIME_STREAM, 0, 0);
+            snprintf(buf, 1024, "%s", asctime(gmtime(&now)));
+        sctp_sendmsg(cfd, (void*) buf, (size_t) strlen(buf) + 1, NULL, 0, 0, 0, GREENWICH_MEAN_TIME_STREAM, 0, 0);
+        sleep(1);
     }
     close(cfd);
   }
