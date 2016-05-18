@@ -37,6 +37,10 @@ namespace Exception {
             ).c_str();
         }
     };
+    
+    struct NoHostName : public Warning {
+        NoHostName() : Warning("Cannot determine host name") { }
+    };
 
 }
 

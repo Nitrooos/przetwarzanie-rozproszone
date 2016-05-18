@@ -1,7 +1,11 @@
 #ifndef TCP_H
 #define TCP_H
 
+#include <string>
+
 #include "address.hpp"
+
+using namespace std;
 
 namespace Connection {
 
@@ -12,7 +16,7 @@ namespace Connection {
         public:
             TCP(TCPAddress const& address);
             ~TCP();
-            void send(const char *data);
+            void send(string const& data);
     };
     
 }

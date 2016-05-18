@@ -32,8 +32,10 @@ struct sockaddr_in Connection::TCP::prepare_sockaddr(TCPAddress const& address) 
     return sock_addr;
 }
 
-void Connection::TCP::send(const char *data) {
-    if (write(this->_socket, data, strlen(data) + 1) < 0) {
+void Connection::TCP::send(string const& data) {
+    const char *to_send = data.c_str();
+    
+    if (write(this->_socket, to_send, strlen(to_send) + 1) < 0) {
         throw Exception::Warning(strerror(errno));
     }
 }
