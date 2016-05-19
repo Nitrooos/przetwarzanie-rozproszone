@@ -11,7 +11,6 @@ namespace Message {
             string state(__u16 state) const;
             string flags(__u8  flags) const;
             string attributes() const;
-            string make_hwaddr_string(unsigned char *hwaddr) const;
             
             public:
                 Base(struct nlmsghdr *header);

@@ -66,21 +66,14 @@ string Message::Neigh::Base::attributes() const {
             switch (attr->rta_type) {
                 case NDA_DST:
                     inet_ntop(AF_INET, RTA_DATA(attr), ntaddr, sizeof ntaddr);
-                    this->print(S, 1, 1, "IP", ntaddr);
+                    this->print(S, "IP", ntaddr, 2);
                     break;
                 case NDA_LLADDR:
                     memcpy(hwaddr, RTA_DATA(attr), sizeof hwaddr);
-                    this->print(S, 1, 1, "hwaddr", this->make_hwaddr_string(hwaddr));
+                    this->print(S, "hwaddr", this->make_hwaddr_string(hwaddr), 2);
                     break;
             }
         }
     }
     return S.str();
-}
-
-string Message::Neigh::Base::make_hwaddr_string(unsigned char *hwaddr) const {
-    char buf[32];
-    sprintf(buf, "%02X:%02X:%02X:%02X:%02X:%02X",
-            hwaddr[0], hwaddr[1], hwaddr[2], hwaddr[3], hwaddr[4], hwaddr[5]);
-    return string(buf);
 }

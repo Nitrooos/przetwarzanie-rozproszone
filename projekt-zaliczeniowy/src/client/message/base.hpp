@@ -15,6 +15,7 @@ namespace Message {
             list<struct rtattr*> _attributes;
             
             string device(int device) const;
+            string make_hwaddr_string(unsigned char *hwaddr) const;
             
             void print(ostream & S, string header, int indent = 1) const;
             void print(ostream & S, string flag_as_string, string value, int indent = 1) const;

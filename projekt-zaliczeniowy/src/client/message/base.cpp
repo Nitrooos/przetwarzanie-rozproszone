@@ -34,6 +34,13 @@ void Message::Base::set_attributes(struct rtattr *attrs) {
     }
 }
 
+string Message::Base::make_hwaddr_string(unsigned char *hwaddr) const {
+    char buf[32];
+    sprintf(buf, "%02X:%02X:%02X:%02X:%02X:%02X",
+            hwaddr[0], hwaddr[1], hwaddr[2], hwaddr[3], hwaddr[4], hwaddr[5]);
+    return string(buf);
+}
+
 void Message::Base::print(ostream & S, int state, int flag, string flag_as_string, string info) const {
     if (state & flag) {
         S << setw(25) << flag_as_string << "     " << info << "\n";

@@ -8,6 +8,9 @@ namespace Message {
     namespace Link {
         
         class Base : public Message::Base {
+            string flags(unsigned int flags) const;
+            string attributes() const;
+            
             public:
                 Base(struct nlmsghdr *header);
                 virtual string shout();
