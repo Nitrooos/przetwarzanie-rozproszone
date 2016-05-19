@@ -14,7 +14,7 @@ string Message::Addr::Base::shout() {
     return "\n" + this->family(msg->ifa_family) +
                   this->flags(msg->ifa_flags) +
                   this->device(msg->ifa_index) +
-                  "mask /" + to_string(msg->ifa_prefixlen);
+                  this->mask(msg->ifa_prefixlen);
 }
 
 Message::Addr::Base *Message::Addr::Base::build(struct nlmsghdr *header) {
@@ -46,5 +46,11 @@ string Message::Addr::Base::family(unsigned char family) const {
         default:       family_name = "Unknown";
     }    
     this->print(S, "address family", family_name);
+    return S.str();
+}
+
+string Message::Addr::Base::mask(unsigned char mask) const {
+    ostringstream S;
+    this->print(S, "mask", "/" + to_string(mask));
     return S.str();
 }

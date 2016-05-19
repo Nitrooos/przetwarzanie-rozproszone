@@ -10,6 +10,7 @@ namespace Message {
         class Base : public Message::Base {
             string flags(unsigned char flags) const;
             string family(unsigned char family) const;
+            string mask(unsigned char mask) const;
             
             public:
                 Base(struct nlmsghdr *header);
