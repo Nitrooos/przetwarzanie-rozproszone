@@ -10,7 +10,6 @@ namespace Message {
         class Base : public Message::Base {
             string state(__u16 state) const;
             string flags(__u8  flags) const;
-            string device(int device) const;
             string attributes() const;
             string make_hwaddr_string(unsigned char *hwaddr) const;
             

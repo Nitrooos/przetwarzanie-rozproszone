@@ -40,3 +40,9 @@ void Message::Base::print(ostream & S, string flag_as_string, string value, int 
 void Message::Base::print(ostream & S, string header, int indent) const {
     S << string(indent*3, ' ') << header << ":\n";
 }
+
+string Message::Base::device(int device) const {
+    ostringstream S;
+    this->print(S, "device", to_string(device));
+    return S.str();
+}

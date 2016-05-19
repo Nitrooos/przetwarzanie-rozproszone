@@ -55,12 +55,6 @@ string Message::Neigh::Base::flags(__u8 flags) const {
     return S.str();
 }
 
-string Message::Neigh::Base::device(int device) const {
-    ostringstream S;
-    this->print(S, "device", to_string(device));
-    return S.str();
-}
-
 string Message::Neigh::Base::attributes() const {
     ostringstream S;
     char ntaddr[32];

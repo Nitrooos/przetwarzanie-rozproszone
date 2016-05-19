@@ -8,6 +8,9 @@ namespace Message {
     namespace Addr {
         
         class Base : public Message::Base {
+            string flags(unsigned char flags) const;
+            string family(unsigned char family) const;
+            
             public:
                 Base(struct nlmsghdr *header);
                 virtual string shout();
