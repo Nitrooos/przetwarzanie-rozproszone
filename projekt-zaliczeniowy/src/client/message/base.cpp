@@ -27,6 +27,13 @@ Message::Base* Message::Base::build(struct nlmsghdr *header) {
 
 Message::Base::Base(struct nlmsghdr *header) : _header(header) { }
 
+void Message::Base::set_attributes(struct rtattr *attrs) {
+    int atlen = RTM_PAYLOAD(this->_header);
+    for(;RTA_OK(attrs, atlen); attrs = RTA_NEXT(attrs, atlen)) {
+        this->_attributes.push_back(attrs);
+    }
+}
+
 void Message::Base::print(ostream & S, int state, int flag, string flag_as_string, string info) const {
     if (state & flag) {
         S << setw(25) << flag_as_string << "     " << info << "\n";

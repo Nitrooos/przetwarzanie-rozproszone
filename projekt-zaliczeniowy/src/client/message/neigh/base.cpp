@@ -7,7 +7,7 @@
 #include <arpa/inet.h>
 
 Message::Neigh::Base::Base(struct nlmsghdr *header): Message::Base(header) {
-    this->set_attributes((struct ndmsg*)NLMSG_DATA(header));
+    this->set_attributes(RTM_RTA((struct ndmsg*)NLMSG_DATA(header)));
 }
 
 string Message::Neigh::Base::shout() {

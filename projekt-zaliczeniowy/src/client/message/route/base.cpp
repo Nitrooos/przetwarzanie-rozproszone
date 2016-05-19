@@ -9,7 +9,7 @@
 #include <arpa/inet.h>
 
 Message::Route::Base::Base(struct nlmsghdr *header): Message::Base(header) {
-    this->set_attributes((struct rtmsg*)NLMSG_DATA(header));
+    this->set_attributes(RTM_RTA((struct rtmsg*)NLMSG_DATA(header)));
 }
 
 Message::Route::Base *Message::Route::Base::build(struct nlmsghdr *header) {

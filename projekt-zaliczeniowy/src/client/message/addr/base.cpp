@@ -2,19 +2,19 @@
 #include "new.hpp"
 #include "del.hpp"
 
+#include <cstring>
 #include <sstream>
 #include <arpa/inet.h>
 
 Message::Addr::Base::Base(struct nlmsghdr *header): Message::Base(header) {
-    this->set_attributes((struct ifaddrmsg*)NLMSG_DATA(header));
+    this->set_attributes(IFA_RTA((struct ifaddrmsg*)NLMSG_DATA(header)));
 }
 
 string Message::Addr::Base::shout() {
     auto msg = (struct ifaddrmsg*)NLMSG_DATA(this->_header);
     return "\n" + this->family(msg->ifa_family) +
                   this->flags(msg->ifa_flags) +
-                  this->device(msg->ifa_index) +
-                  this->mask(msg->ifa_prefixlen);
+                  this->attributes(msg->ifa_prefixlen);
 }
 
 Message::Addr::Base *Message::Addr::Base::build(struct nlmsghdr *header) {
@@ -49,8 +49,27 @@ string Message::Addr::Base::family(unsigned char family) const {
     return S.str();
 }
 
-string Message::Addr::Base::mask(unsigned char mask) const {
+string Message::Addr::Base::attributes(unsigned char mask) const {
     ostringstream S;
-    this->print(S, "mask", "/" + to_string(mask));
+    if (!this->_attributes.empty()) {
+        this->print(S, "attributes");
+        for (auto attr : this->_attributes) {
+            const char *inet;
+            switch (attr->rta_type) {
+                case IFA_ADDRESS:
+                    char _address[32];
+                    inet = inet_ntop(AF_INET, RTA_DATA(attr), _address, sizeof _address);
+                    if (inet != nullptr) {
+                        this->print(S, "address", string(_address) + "/" + to_string(mask), 2);
+                    }
+                    break;
+                case IFA_LABEL:
+                    char _interface[32];
+                    memcpy(_interface, RTA_DATA(attr), sizeof _interface);
+                    this->print(S, "dev", _interface, 2);
+                    break;
+            }
+        }
+    }
     return S.str();
 }

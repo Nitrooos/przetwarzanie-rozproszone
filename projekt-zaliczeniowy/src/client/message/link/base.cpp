@@ -3,7 +3,7 @@
 #include "del.hpp"
 
 Message::Link::Base::Base(struct nlmsghdr *header): Message::Base(header) {
-    this->set_attributes((struct ifinfomsg*)NLMSG_DATA(header));
+    this->set_attributes(IFLA_RTA((struct ifinfomsg*)NLMSG_DATA(header)));
 }
 
 string Message::Link::Base::shout() {
