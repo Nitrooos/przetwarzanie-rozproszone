@@ -83,6 +83,9 @@ OBJECTS := \
 	$(OBJDIR)/base4.o \
 	$(OBJDIR)/del3.o \
 	$(OBJDIR)/new3.o \
+	$(OBJDIR)/base5.o \
+	$(OBJDIR)/del4.o \
+	$(OBJDIR)/new4.o \
 
 RESOURCES := \
 
@@ -192,6 +195,15 @@ $(OBJDIR)/del3.o: src/client/message/route/del.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/new3.o: src/client/message/route/new.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/base5.o: src/client/message/rule/base.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/del4.o: src/client/message/rule/del.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/new4.o: src/client/message/rule/new.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

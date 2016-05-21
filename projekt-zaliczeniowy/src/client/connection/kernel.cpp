@@ -29,6 +29,7 @@ struct sockaddr_nl Connection::Kernel::prepare_sockaddr() {
     sock_addr.nl_family = AF_NETLINK;
     sock_addr.nl_pid = getpid();
     sock_addr.nl_groups = RTMGRP_IPV4_ROUTE  |
+                          RTMGRP_IPV4_RULE   |
                           RTMGRP_LINK        |
                           RTMGRP_IPV4_IFADDR |
                           RTMGRP_NEIGH       |

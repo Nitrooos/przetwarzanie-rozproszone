@@ -21,7 +21,7 @@ Message::Base* Message::Base::build(struct nlmsghdr *header) {
         case RTM_NEWNEIGH: case RTM_DELNEIGH:
             return Message::Neigh::Base::build(header);
         default:
-            throw Exception::Warning("Unknown message type: " + header->nlmsg_type);
+            throw Exception::Warning("Received message with unknown type: " + to_string(header->nlmsg_type) + " so it will not be processed");
     }
 }
 
