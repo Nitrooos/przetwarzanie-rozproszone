@@ -30,7 +30,11 @@ loop do
         while (line = client.recv(8192)) != ""
             line.strip!
             puts line if options[:verbose]
+            
+            # Zablokuj plik na czas dopisywania komunikatu
+            file.flock File::LOCK_EX
             file.puts "[" + Time.now.strftime("%Y.%m.%d %H:%M:%S") + "] " + line
+            file.flock File::LOCK_UN
         end
         client.close
         puts "Closing connection"

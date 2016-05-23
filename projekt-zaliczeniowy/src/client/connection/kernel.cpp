@@ -62,48 +62,6 @@ list<Message::Base*> Connection::Kernel::receive() {
     }
     
     return messages;
-    
-    //~nl_message = (struct nlmsghdr*) buf;
-    //~for(;NLMSG_OK(nl_message, nl_length); nl_message = NLMSG_NEXT(nl_message, nl_length)) {
-        //~rtp = (struct rtmsg*) NLMSG_DATA(nl_message);
-        //~if (rtp->rtm_table != RT_TABLE_MAIN) {
-            //~continue;
-        //~}
-        //~atp = (struct rtattr*) RTM_RTA(rtp);
-        //~atlen = RTM_PAYLOAD(nl_message);
-        
-        //~memset(dst, 0, sizeof(dst));
-        //~memset(msk, 0, sizeof(msk));
-        //~memset(gwy, 0, sizeof(gwy));
-        //~memset(dev, 0, sizeof(dev));
-        //~for(;RTA_OK(atp, atlen); atp = RTA_NEXT(atp, atlen)) {
-            //~switch(atp->rta_type) {
-                //~case RTA_DST:
-                    //~inet_ntop(AF_INET, RTA_DATA(atp), dst, sizeof(dst));
-                    //~break;
-                //~case RTA_GATEWAY:
-                    //~inet_ntop(AF_INET, RTA_DATA(atp), gwy, sizeof(gwy));
-                    //~break;
-                //~case RTA_OIF:
-                    //~sprintf(dev, "%d", *((int*) RTA_DATA(atp)));
-                    //~break;
-            //~}
-        //~}
-        //~sprintf(msk, "%d", rtp->rtm_dst_len);
-        //~if (nl_message->nlmsg_type == RTM_DELROUTE) {
-            //~cout << "[DEL] ";
-        //~} else if (nl_message->nlmsg_type == RTM_NEWROUTE) {
-            //~cout << "[ADD] ";
-        //~}
-        
-        //~if (strlen(dst) == 0) {
-            //~cout << "default via " << gwy << " dev " << dev << "\n";
-        //~} else if (strlen(gwy) == 0) {
-            //~cout << dst << "/" << msk << " dev " << dev << "\n";
-        //~} else {
-            //~cout << "dst " << dst << "/" << msk << " gwy " << gwy << " dev " << dev << "\n";
-        //~}
-    //~}
 }
 
 int Connection::Kernel::receive_msg_headers(char *buf, int buf_len) {

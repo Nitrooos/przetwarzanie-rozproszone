@@ -3,6 +3,7 @@
 #include "link/base.hpp"
 #include "addr/base.hpp"
 #include "neigh/base.hpp"
+#include "rule/base.hpp"
 
 #include "../exceptions/types.hpp"
 
@@ -20,6 +21,8 @@ Message::Base* Message::Base::build(struct nlmsghdr *header) {
             return Message::Addr::Base::build(header);
         case RTM_NEWNEIGH: case RTM_DELNEIGH:
             return Message::Neigh::Base::build(header);
+        case RTM_NEWRULE: case RTM_DELRULE:
+            return Message::Rule::Base::build(header);
         default:
             throw Exception::Warning("Received message with unknown type: " + to_string(header->nlmsg_type) + " so it will not be processed");
     }

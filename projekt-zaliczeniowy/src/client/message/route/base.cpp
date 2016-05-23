@@ -53,14 +53,6 @@ string Message::Route::Base::shout() {
                   this->scope(msg->rtm_scope) +
                   this->flags(msg->rtm_flags) +
                   this->attributes(attrs_vals);
-    
-    //~if (strlen(dst) == 0) {
-        //~return "\ndefault via " + string(gwy) + " dev " + string(dev);
-    //~} else if (strlen(gwy) == 0) {
-        //~return "\n" + string(dst) + "/" + string(msk) + " dev " + string(dev);
-    //~} else {
-        //~return "\ndst " + string(dst) + "/" + string(msk) + " gateway " + string(gwy) + " dev " + string(dev);
-    //~}
 }
 
 Message::Route::Base::AttributeValues Message::Route::Base::read_attributes() const {
