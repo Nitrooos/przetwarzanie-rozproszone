@@ -1,6 +1,11 @@
 require 'socket'
 require 'optparse'
 
+Signal.trap("INT") { 
+    puts "\nShutting down gracefully..."
+    exit
+}
+
 def parse_arguments
     options = { port: 1234, file: "log", verbose: false }
     OptionParser.new do |opts|
