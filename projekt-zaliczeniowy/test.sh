@@ -9,11 +9,11 @@ ip addr add 10.0.0.1/8 dev enp3s0f1
 ip addr del 10.0.0.1/8 dev enp3s0f1
 
 # RTM_NEWROUTE | RTM_DELROUTE messages
-#ip route add 192.168.1.0/24 dev enp3s0f1
-#ip route del 192.168.1.0/24 dev enp3s0f1
+ip route add 192.168.1.0/24 dev enp3s0f1
+ip route del 192.168.1.0/24 dev enp3s0f1
 
-#ip route add default via 192.168.1.254
-#ip route del default via 192.168.1.254
+ip route add default via 192.168.1.254/24
+ip route del default via 192.168.1.254/24
 
 # RTM_NEWNEIGH | RTM_DELNEIGH messages
 arp -s 192.168.1.111 12:34:56:78:90:aa
